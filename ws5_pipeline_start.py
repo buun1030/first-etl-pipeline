@@ -3,19 +3,22 @@ from airflow.operators.bash_operator import BashOperator
 from airflow.operators.python_operator import PythonOperator
 from airflow.utils.dates import days_ago
 from datetime import timedelta
+from dotenv import load_dotenv
 
 import pymysql.cursors
 import pandas as pd
 import requests
+import os
 
+load_dotenv()
 
 class Config:
-    MYSQL_HOST = 'db4free.net'
-    MYSQL_PORT = 3306
-    MYSQL_USER = 'datath'
-    MYSQL_PASSWORD = 'DataScience-chillchill'
-    MYSQL_DB = 'detraining'
-    MYSQL_CHARSET = 'utf8mb4'
+    MYSQL_HOST = os.getenv('MYSQL_HOST')
+    MYSQL_PORT = os.getenv('MYSQL_PORT')
+    MYSQL_USER = os.getenv('MYSQL_USER')
+    MYSQL_PASSWORD = os.getenv('MYSQL_PASSWORD')
+    MYSQL_DB = os.getenv('MYSQL_DB')
+    MYSQL_CHARSET = os.getenv('MYSQL_CHARSET')
 
 # For PythonOperator
 
