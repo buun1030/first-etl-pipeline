@@ -116,8 +116,17 @@ t3 = PythonOperator(
 )
 
 # TODO: load to BigQuery
-
+t4 = BashOperator(
+    task_id='load_bq',
+    bash_command='bq load --source_format=CSV --autodetect\
+                dataset.tablename \
+                gs://bucketname/data/result.csv',
+    dag=dag,
+)
+# สร้างแค่ dataset รอไว้ใน BigQuery, ไม่ต้องสร้าง table เนื่องจาก table จะถูกสร้างตามชื่อในคำสั่ง bq ข้างต้นเลย
 
 # TODO: Dependencies
 
-[t1, t2] >> t3
+[t1, t2] >> t3 >> t4
+
+# ในแต่ละ task สามารถกดเข้าไปดู log ได้
